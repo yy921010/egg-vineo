@@ -8,19 +8,19 @@ const BlogRules = {
     },
     content: {
         type: 'string',
+        allowEmpty: true
+    },
+    isHidden: {
+        type: 'boolean',
         required: false
     },
-    type: {
+    tags: {
         type: 'array',
         itemType: 'string'
     },
-    date: {
+    abstract: {
         type: 'string',
-        required: false
-    },
-    isDraft: {
-        type: 'boolean',
-        required: false
+        allowEmpty: true
     }
 };
 
@@ -38,8 +38,8 @@ class BlogController extends Controller {
         try {
             this.ctx.validate(BlogRules, blogData);
         } catch (e) {
-            this.ctx.logger.warn(e.errors);
-            this.fail(500, e.errors)
+            this.ctx.logger.warn(e.message);
+            this.fail(500, e.message)
         }
         this.success(await this.ctx.service.blog.saveBlog(blogData));
     }
@@ -52,13 +52,19 @@ class BlogController extends Controller {
             this.ctx.logger.warn(e.errors);
             this.fail(400, e.errors)
         }
-        this.success(await this.ctx.service.blog.updateBlog(blogData));
+        const isUpdateStatus = await this.ctx.service.blog.updateBlog(blogData);
+        if (isUpdateStatus) {
+            this.success('更新成功')
+        } else {
+            this.success('更新失败')
+        }
     }
 
     async delete() {
         const {title} = this.ctx.query;
         if (title) {
-            this.success(await this.ctx.service.blog.deleteBlog(title));
+            const isDelete = await this.ctx.service.blog.deleteBlog(title);
+            this.success(isDelete ? '删除成功' : '删除失败');
         } else {
             this.fail(400, '请传入相应的参数')
         }

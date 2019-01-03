@@ -18,9 +18,10 @@ class BlogService extends Service {
     }
 
     async deleteBlog(title) {
-        return await this.ctx.model.Blog.deleteOne({
+        const {n} = await this.ctx.model.Blog.deleteOne({
             'title': title
         });
+        return n > 0;
     }
 
 }

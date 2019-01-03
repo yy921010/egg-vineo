@@ -10,5 +10,5 @@ module.exports = app => {
     router.get('/blog', controller.blog.index);
     router.post('/blog', controller.blog.save);
     router.put('/blog', controller.blog.update);
-    router.delete('/blog', controller.blog.delete)
+    router.delete('/blog', controller.blog.delete);
 };

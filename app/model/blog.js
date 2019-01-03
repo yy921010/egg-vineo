@@ -7,20 +7,20 @@ module.exports = app => {
             required: true
         },
         content: {
-            type: String,
-            required: true
+            type: String
+
         },
-        date: {
-            type: String,
-            required: true
-        },
-        isDraft: {
+        isHidden: {
             type: Boolean,
-            required: true
+            required: true,
         },
-        type: {
+        tags: {
             type: Array
+        },
+        abstract: {
+            type: String
         }
     });
+
     return mongoose.model('Blog', BlogSchema);
 };
