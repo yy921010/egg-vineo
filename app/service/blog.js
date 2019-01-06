@@ -1,8 +1,21 @@
 const {Service} = require('egg');
 
 class BlogService extends Service {
-    async findBlog() {
-        return await this.ctx.model.Blog.find();
+
+    async findBlog(pageNumber = 1, pageSize = 20) {
+        return await this.ctx.model.Blog
+            .find()
+            .skip((pageNumber - 1) * pageSize)
+            .limit(pageSize)
+            .sort({
+                _id: -1
+            })
+    }
+
+    async blogCount() {
+        return await this.ctx.model.Blog
+            .find()
+            .countDocuments();
     }
 
     async saveBlog(blog = {}) {
