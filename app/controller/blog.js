@@ -30,17 +30,22 @@ class BlogController extends Controller {
      * @returns {Promise<void>}
      */
     async index() {
-        const {page = 1, size = 20} = this.ctx.query;
-        let blogs = await this.ctx.service.blog.findBlog(+page, +size);
-        let count = await this.ctx.service.blog.blogCount();
+        const {page = 1, size = 20, blogId} = this.ctx.query;
+        if (blogId) {
+            const blog = await this.ctx.service.blog.blogById(blogId);
+            this.success(blog);
+        } else {
+            let blogs = await this.ctx.service.blog.findBlog(+page, +size);
+            let count = await this.ctx.service.blog.blogCount();
+            this.success({
+                blogs,
+                totalPages: Math.ceil(count / size),
+                page,
+                size,
+                total: count
+            })
+        }
 
-        this.success({
-            blogs,
-            totalPages: Math.ceil(count / size),
-            page,
-            size,
-            total: count
-        })
     }
 
     async save() {

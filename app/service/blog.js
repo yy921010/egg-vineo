@@ -18,6 +18,13 @@ class BlogService extends Service {
             .countDocuments();
     }
 
+    async blogById(id) {
+        this.ctx.logger.debug('id', id);
+        const blog = await this.ctx.model.Blog.findById(id);
+        this.ctx.logger.debug('blog', blog);
+        return blog;
+    }
+
     async saveBlog(blog = {}) {
         const blogModel = new this.ctx.model.Blog(blog);
         return await blogModel.save();
