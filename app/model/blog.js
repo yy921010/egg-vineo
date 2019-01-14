@@ -8,7 +8,6 @@ module.exports = app => {
             },
             content: {
                 type: String
-
             },
             isHidden: {
                 type: Boolean,
@@ -27,6 +26,9 @@ module.exports = app => {
             updateTime: {
                 type: Date,
                 default: Date.now
+            },
+            thumbnail: {
+                type: String
             }
         },
         {

@@ -4,10 +4,14 @@
   "description": "this is vineo",
   "private": true,
   "dependencies": {
+    "await-stream-ready": "^1.0.1",
+    "dayjs": "^1.8.0",
     "egg": "^2.2.1",
+    "egg-cors": "^2.1.2",
     "egg-mongoose": "^3.1.1",
     "egg-scripts": "^2.5.0",
-    "egg-validate": "^2.0.2"
+    "egg-validate": "^2.0.2",
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

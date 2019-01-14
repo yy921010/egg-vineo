@@ -21,6 +21,10 @@ const BlogRules = {
     abstract: {
         type: 'string',
         allowEmpty: true
+    },
+    thumbnail: {
+        type: 'string',
+        allowEmpty: true
     }
 };
 

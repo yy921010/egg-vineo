@@ -12,4 +12,5 @@ module.exports = app => {
     router.put('/blog', controller.blog.update);
     router.delete('/blog', controller.blog.delete);
     router.get('/api/v1/blog', controller.blog.index);
+    router.post('/imgUpload', controller.image.index);
 };
