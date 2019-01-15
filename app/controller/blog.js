@@ -25,6 +25,9 @@ const BlogRules = {
     thumbnail: {
         type: 'string',
         allowEmpty: true
+    },
+    identification: {
+        type: 'string'
     }
 };
 

@@ -9,17 +9,20 @@ class ImageService extends Service {
     /**
      * 上传图片
      * @param stream
-     * @returns {Promise<void>}
+     * @returns {Promise<void>}s
      */
-    async uploadImage(stream, moduleName) {
-        const pathName = 'app/public/upload';
-        const dirName = dayjs(Date.now()).format('YYYYMMDD');
+    async uploadImage(stream, ...moduleNames) {
+        let dirPathName = '';
+        let pathChild = '';
+        moduleNames.forEach((moduleItem) => {
+            pathChild = pathChild.concat(`${moduleItem}/`)
+            dirPathName = path.join(this.config.baseDir, this.config.upload.path, pathChild);
+            this.logger.info(dirPathName);
+            if (!fs.existsSync(dirPathName)) {
+                fs.mkdirSync(dirPathName)
+            }
+        });
         const filename = Date.now() + '' + Number.parseInt(Math.random() * 10000) + path.extname(stream.filename);
-        const dirPathName = path.join(this.config.baseDir, pathName, moduleName);
-        this.logger.info(dirPathName);
-        if (!fs.existsSync(dirPathName)) {
-            fs.mkdirSync(dirPathName)
-        }
         const target = path.join(dirPathName, filename);
         const writeStream = fs.createWriteStream(target);
 
@@ -31,8 +34,11 @@ class ImageService extends Service {
             await sendToWormhole(stream);
             throw err;
         }
-        return stream;
+        return {
+            filename
+        };
     }
+
 }
 
 module.exports = ImageService;

@@ -1,4 +1,7 @@
 'use strict';
+const os = require('os')
+const path = require('path')
+
 
 module.exports = appInfo => {
     const config = exports = {};
@@ -23,6 +26,10 @@ module.exports = appInfo => {
         origin: '*',
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
     };
+    config.upload = {
+        path: 'app/public/upload'
+    };
+
 
     return config;
 };
