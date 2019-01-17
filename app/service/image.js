@@ -15,7 +15,7 @@ class ImageService extends Service {
         let dirPathName = '';
         let pathChild = '';
         moduleNames.forEach((moduleItem) => {
-            pathChild = pathChild.concat(`${moduleItem}/`)
+            pathChild = pathChild.concat(`${moduleItem}/`);
             dirPathName = path.join(this.config.baseDir, this.config.upload.path, pathChild);
             this.logger.info(dirPathName);
             if (!fs.existsSync(dirPathName)) {
@@ -25,7 +25,6 @@ class ImageService extends Service {
         const filename = Date.now() + '' + Number.parseInt(Math.random() * 10000) + path.extname(stream.filename);
         const target = path.join(dirPathName, filename);
         const writeStream = fs.createWriteStream(target);
-
         try {
             // 写入文件
             await awaitStreamReady(stream.pipe(writeStream));

@@ -1,8 +1,3 @@
-'use strict';
-const os = require('os')
-const path = require('path')
-
-
 module.exports = appInfo => {
     const config = exports = {};
     exports.news = {
@@ -28,6 +23,5 @@ module.exports = appInfo => {
     config.upload = {
         path: 'app/public/upload'
     };
-
     return config;
 };
