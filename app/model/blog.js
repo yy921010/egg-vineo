@@ -29,9 +29,6 @@ module.exports = app => {
             },
             thumbnail: {
                 type: String
-            },
-            identification: {
-                type: String
             }
         },
         {

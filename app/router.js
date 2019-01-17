@@ -5,12 +5,11 @@
  */
 module.exports = app => {
     const {router, controller} = app;
+    const apiVersion = 'v1';
     router.get('/', controller.home.index);
-    router.get('/news', controller.news.list);
-    router.get('/blog', controller.blog.index);
-    router.post('/blog', controller.blog.save);
-    router.put('/blog', controller.blog.update);
-    router.delete('/blog', controller.blog.delete);
-    router.get('/api/v1/blog', controller.blog.index);
     router.post('/imgUpload', controller.image.index);
+    /**
+     * restful api blog
+     */
+    router.resources('blogs', `/${apiVersion}/blogs`, controller.blog)
 };

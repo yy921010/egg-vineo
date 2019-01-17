@@ -3,13 +3,13 @@ const fs = require('fs');
 const path = require('path');
 const awaitStreamReady = require('await-stream-ready').write;
 const sendToWormhole = require('stream-wormhole');
-const dayjs = require('dayjs');
 
 class ImageService extends Service {
     /**
      * 上传图片
      * @param stream
-     * @returns {Promise<void>}s
+     * @param moduleNames
+     * @returns {Promise<{filename: string}>}
      */
     async uploadImage(stream, ...moduleNames) {
         let dirPathName = '';

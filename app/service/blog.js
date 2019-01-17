@@ -30,16 +30,16 @@ class BlogService extends Service {
         return await blogModel.save();
     }
 
-    async updateBlog(blog) {
+    async updateBlog(id, blog) {
         const {nModified} = await this.ctx.model.Blog.updateOne({
-            '_id': blog._id
+            '_id': id
         }, blog);
         return nModified > 0;
     }
 
-    async deleteBlog(title) {
+    async deleteBlog(id) {
         const {n} = await this.ctx.model.Blog.deleteOne({
-            'title': title
+            '_id': id
         });
         return n > 0;
     }
