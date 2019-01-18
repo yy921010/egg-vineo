@@ -11,16 +11,16 @@ module.exports = {
     },
     /**
      * 删除文件夹
-     * @param path
+     * @param pathName
      */
-    deleteDir(path) {
+    deleteDir(pathName) {
         let files = [];
         //判断给定的路径是否存在
-        if (fs.existsSync(path)) {
+        if (fs.existsSync(pathName)) {
             //返回文件和子目录的数组
-            files = fs.readdirSync(path);
+            files = fs.readdirSync(pathName);
             files.forEach((file, index) => {
-                let curPath = path.join(path, file);
+                let curPath = path.join(pathName, file);
                 //同步读取文件夹文件，如果是文件夹，则函数回调
                 if (fs.statSync(curPath).isDirectory()) {
                     this.deleteDir(curPath);
@@ -28,7 +28,7 @@ module.exports = {
                     fs.unlinkSync(curPath);    //是指定文件，则删除
                 }
             });
-            fs.rmdirSync(url); //清除文件夹
+            fs.rmdirSync(pathName); //清除文件夹
         } else {
             this.logger.info("给定的路径不存在！");
         }
@@ -36,16 +36,16 @@ module.exports = {
     /**
      *
      * @param name
-     * @param path
+     * @param pathName
      */
-    deleteFileByName(name, path) {
+    deleteFileByName(name, pathName) {
         let files = [];
         //判断给定的路径是否存在
-        if (fs.existsSync(path)) {
+        if (fs.existsSync(pathName)) {
             //返回文件和子目录的数组
-            files = fs.readdirSync(path);
+            files = fs.readdirSync(pathName);
             files.forEach((file, index) => {
-                let curPath = path.join(path, file);
+                let curPath = path.join(pathName, file);
                 //同步读取文件夹文件，如果是文件夹，则函数回调
                 if (fs.statSync(curPath).isDirectory()) {
                     this.deleteFileByName(curPath, name);

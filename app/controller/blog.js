@@ -1,5 +1,5 @@
 const Controller = require('./base_controller');
-
+const path = require('path');
 
 const BlogRules = {
     title: {
@@ -23,9 +23,27 @@ const BlogRules = {
         allowEmpty: true
     },
     thumbnail: {
-        type: 'string',
+        type: 'object',
         allowEmpty: true,
-        default: ''
+        rule: {
+            type: {
+                type: 'string',
+                required: false
+            },
+            name: {
+                type: 'string',
+                required: false
+            },
+            moduleName: {
+                type:'string',
+                required: false
+            },
+            id: {
+                type:'string',
+                required: false
+            }
+        },
+        default: {}
     }
 };
 
@@ -65,7 +83,7 @@ class BlogController extends Controller {
         try {
             this.ctx.validate(BlogRules, blogData);
         } catch (e) {
-            this.ctx.logger.warn(e.message);
+            this.ctx.logger.warn(e.errors);
             this.fail(500, e.message)
         }
         this.success(await this.ctx.service.blog.saveBlog(blogData));
@@ -92,10 +110,16 @@ class BlogController extends Controller {
         }
     }
 
+    /**
+     * 删除博客
+     * @returns {Promise<void>}
+     */
     async destroy() {
         const {id} = this.ctx.params;
         if (id) {
             const isDelete = await this.ctx.service.blog.deleteBlog(id);
+            const delPath = path.join(this.config.baseDir, this.config.upload.path, 'blog', id);
+            this.ctx.helper.deleteDir(delPath);
             this.success(isDelete ? '删除成功' : '删除失败');
         } else {
             this.fail(400, '请传入相应的参数')

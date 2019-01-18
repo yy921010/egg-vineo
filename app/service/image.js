@@ -34,6 +34,7 @@ class ImageService extends Service {
             throw err;
         }
         return {
+            mimeType: stream.mimeType,
             filename
         };
     }

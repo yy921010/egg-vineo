@@ -28,7 +28,7 @@ module.exports = app => {
                 default: Date.now
             },
             thumbnail: {
-                type: String
+                type: Object
             }
         },
         {
