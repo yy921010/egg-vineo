@@ -1,4 +1,5 @@
 const Controller = require('./base_controller');
+const path = require('path');
 
 class ImageController extends Controller {
 
@@ -24,6 +25,10 @@ class ImageController extends Controller {
 
     async destroy() {
         const {id} = this.ctx.params;
+        const {moduleName, pathName} = this.ctx.request.body;
+        const delPath = path.join(this.config.baseDir, this.config.upload.path, moduleName, pathName);
+        this.ctx.helper.deleteFileByName(id, delPath);
+        this.success('成功');
     }
 }
 

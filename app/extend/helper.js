@@ -25,10 +25,12 @@ module.exports = {
                 if (fs.statSync(curPath).isDirectory()) {
                     this.deleteDir(curPath);
                 } else {
-                    fs.unlinkSync(curPath);    //是指定文件，则删除
+                    //是指定文件，则删除
+                    fs.unlinkSync(curPath);
                 }
             });
-            fs.rmdirSync(pathName); //清除文件夹
+            //清除文件夹
+            fs.rmdirSync(pathName);
         } else {
             this.logger.info("给定的路径不存在！");
         }
