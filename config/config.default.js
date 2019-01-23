@@ -14,7 +14,9 @@ module.exports = appInfo => {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
     };
     config.upload = {
-        path: 'app/public/upload'
+        path: 'app/public/upload',
+        temp: 'app/public/.temp'
     };
+
     return config;
 };

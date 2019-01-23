@@ -2,12 +2,38 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-    makeDir(moduleItem) {
-        const dirPathName = path.join(this.config.baseDir, this.config.upload.path, moduleItem);
-        if (!fs.existsSync(dirPathName)) {
-            fs.mkdirSync(dirPathName)
+    /**
+     * 创建初始化文件：upload, .temp
+     */
+    makeDirInit() {
+        const uploadFiles = this.config.upload;
+        for (let fileKey of Object.keys(uploadFiles)) {
+            const dirPathName = path.join(this.config.baseDir, uploadFiles[fileKey]);
+            if (!fs.existsSync(dirPathName)) {
+                fs.mkdirSync(dirPathName)
+            }
         }
-        return dirPathName
+    },
+    /**
+     * 向temp文件中编写文件
+     * @param fileNames
+     * @returns {string}
+     */
+    makeDir(isTEMP, ...fileNames) {
+        this.makeDirInit();
+        // 编写初始文件
+        let dirPathName = '';
+        let pathChild = '';
+        fileNames.forEach((fileName) => {
+            const uploadFile = isTEMP ? this.config.upload.temp : this.config.upload.path;
+            pathChild = pathChild.concat(`${fileName}/`);
+            dirPathName = path.join(this.config.baseDir, uploadFile, pathChild);
+            if (!fs.existsSync(dirPathName)) {
+                fs.mkdirSync(dirPathName)
+            }
+            this.logger.info(dirPathName);
+        });
+        return dirPathName;
     },
     /**
      * 删除文件夹
