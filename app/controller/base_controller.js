@@ -1,17 +1,17 @@
-const {Controller} = require('egg');
+'use strict';
+const { Controller } = require('egg');
 
 class BaseController extends Controller {
+  success(data = {} || []) {
+    this.ctx.body = {
+      success: true,
+      data,
+    };
+  }
 
-    success(data = {} || []) {
-        this.ctx.body = {
-            success: true,
-            data,
-        };
-    }
-
-    fail(status = 500, msg = '') {
-        this.ctx.throw(status, msg);
-    }
+  fail(status = 500, msg = '') {
+    this.ctx.throw(status, msg);
+  }
 }
 
 module.exports = BaseController;
