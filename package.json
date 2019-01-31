@@ -18,6 +18,9 @@
   "devDependencies": {
     "autod": "^3.0.1",
     "autod-egg": "^1.0.0",
+    "commitizen": "^3.0.5",
+    "conventional-changelog": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
     "egg-bin": "^4.3.5",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.14.0",
@@ -39,7 +42,8 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -w -r 0"
   },
   "ci": {
     "version": "8"
@@ -49,5 +53,10 @@
     "url": ""
   },
   "author": "fantasy",
-  "license": "MIT"
+  "license": "MIT",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
