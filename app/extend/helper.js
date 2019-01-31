@@ -15,7 +15,12 @@ module.exports = {
       }
     }
   },
-
+  /**
+     *
+     * @param {boolean}isTEMP 是否为空
+     * @param {array}fileNames 文件名
+     * @return {string} 保存的文档目录
+     */
   makeDir(isTEMP, ...fileNames) {
     this.makeDirInit();
     // 编写初始文件
